@@ -10,35 +10,41 @@ namespace LinkedList.Inventori
     {
         public string Nama {  get; set; }
         public int Kuantitas { get; set; }
-
         public Item(string nama, int kuantitas)
         {
             Nama = nama;
             Kuantitas = kuantitas;
         }
     }
-
     public class ManajemenInventori
     {
         public LinkedList<Item> inventori = new LinkedList<Item>();
-
         public void TambahItem(Item item)
         {
             inventori.AddLast(item);
         }
-
         public bool HapusItem(string nama)
         {
-            var item = inventori.FirstOrDefault(i =>  i.Nama.Equals(nama, StringComparison.OrdinalIgnoreCase));
-            return item != null && inventori.Remove(item);
+            var node = inventori.First;
+            while (node != null)
+            {
+                if(node.Value.Nama.Equals(nama, StringComparison.OrdinalIgnoreCase))
+                {
+                    inventori.Remove(node);
+                    return true;
+                }
+                node = node.Next;
+            }
+            return false;
         }
-
-        public void TampilkanInventori()
+        public string TampilkanInventori()
         {
+            StringBuilder sb = new StringBuilder();
             foreach (var item in inventori)
             {
-                Console.WriteLine($"{item.Nama}; {item.Kuantitas}");
+                sb.AppendLine($"{item.Nama}; {item.Kuantitas}");
             }
+            return sb.ToString().TrimEnd();
         }
     }
 }

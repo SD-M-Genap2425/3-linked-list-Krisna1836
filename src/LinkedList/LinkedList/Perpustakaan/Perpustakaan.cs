@@ -2,37 +2,44 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LinkedList.Perpustakaan;
-
-// Kelas Buku
-public class Buku
+namespace LinkedList.Perpustakaan
 {
-    public string Judul { get; set; }
-    public string Penulis { get; set; }
-    public int Tahun { get; set; }
 
-    public Buku(string judul, string penulis, int tahun)
+    // Kelas Buku
+    public class Buku
     {
-        Judul = judul;
-        Penulis = penulis;
-        Tahun = tahun;
+        public string Judul { get; set; }
+        public string Penulis { get; set; }
+        public int Tahun { get; set; }
+
+        public Buku(string judul, string penulis, int tahun)
+        {
+            Judul = judul;
+            Penulis = penulis;
+            Tahun = tahun;
+        }
     }
-}
 
-public class BukuNode
-{
-    public Buku Buku { get; set; }
-    public BukuNode Next { get; set; }
-
-    public BukuNode(Buku buku)
+    public class BukuNode
     {
-        Buku = buku;
-        Next = null;
+        public Buku Data { get; set; }
+        public BukuNode Next { get; set; }
+
+        public BukuNode(Buku buku)
+        {
+            Data = buku;
+            Next = null;
+        }
     }
-}
     public class KoleksiPerpustakaan
     {
-        private BukuNode head;
+        private BukuNode? head;
+
+        public KoleksiPerpustakaan()
+        {
+            head = null;
+        }
+
         public void TambahBuku(Buku buku)
         {
             BukuNode newNode = new BukuNode(buku);
@@ -45,19 +52,25 @@ public class BukuNode
             BukuNode temp = head;
             BukuNode prev = null;
 
-            while (temp != null && temp.Buku.Judul != judul)
+            while (temp != null && temp.Data.Judul != judul)
             {
                 prev = temp;
                 temp = temp.Next;
             }
 
-            if (temp == null) return false;
+            if (temp == null)
+            {
+                return false;
+            }
 
             if (prev == null)
+            {
                 head = temp.Next;
+            }
             else
+            {
                 prev.Next = temp.Next;
-
+            }
             return true;
         }
         public Buku[] CariBuku(string kataKunci)
@@ -66,20 +79,23 @@ public class BukuNode
             BukuNode temp = head;
             while (temp != null)
             {
-                if (temp.Buku.Judul.Contains(kataKunci, StringComparison.OrdinalIgnoreCase))
-                    hasil.Add(temp.Buku);
+                if (temp.Data.Judul.Contains(kataKunci, StringComparison.OrdinalIgnoreCase))
+                    hasil.Add(temp.Data);
                 temp = temp.Next;
             }
             return hasil.ToArray();
         }
-        public void TampilkanKoleksi()
+        public string TampilkanKoleksi()
         {
+            List<string> daftarBuku = new List<string>();
             BukuNode temp = head;
             while (temp != null)
             {
-                Console.WriteLine($"{temp.Buku.Judul}; {temp.Buku.Penulis}; {temp.Buku.Tahun}");
+                daftarBuku.Add($"\"{temp.Data.Judul}\"; {temp.Data.Penulis}; {temp.Data.Tahun}");
                 temp = temp.Next;
             }
+            return string.Join("\n", daftarBuku);
         }
     }
+}
 

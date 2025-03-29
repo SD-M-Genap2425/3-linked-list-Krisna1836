@@ -19,7 +19,6 @@ namespace LinkedList.ManajemenKaryawan
             Posisi = posisi;
         }
     }
-
     public class KaryawanNode
     {
         public Karyawan Karyawan { get; set; }
@@ -50,28 +49,38 @@ namespace LinkedList.ManajemenKaryawan
                 tail = newNode;
             }
         }
-
         public bool HapusKaryawan(string nomorKaryawan)
         {
             KaryawanNode temp = head;
             while (temp != null && temp.Karyawan.NomorKaryawan != nomorKaryawan)
+            {
                 temp = temp.Next;
+            }
 
-            if (temp == null) return false;
+            if (temp == null)
+            {
+                return false;
+            }
 
             if (temp.Prev != null)
+            {
                 temp.Prev.Next = temp.Next;
+            }
             else
+            {
                 head = temp.Next;
+            }
 
             if (temp.Next != null)
+            {
                 temp.Next.Prev = temp.Prev;
+            }
             else
+            {
                 tail = temp.Prev;
-
+            }
             return true;
         }
-
         public Karyawan[] CariKaryawan(string kataKunci)
         {
             List<Karyawan> hasil = new List<Karyawan>();
@@ -85,15 +94,16 @@ namespace LinkedList.ManajemenKaryawan
             }
             return hasil.ToArray();
         }
-
-        public void TampilkanDaftar()
+        public string TampilkanDaftar()
         {
+            StringBuilder sb = new StringBuilder();
             KaryawanNode temp = tail;
             while (temp != null)
             {
-                Console.WriteLine($"{temp.Karyawan.NomorKaryawan}; {temp.Karyawan.Nama}; {temp.Karyawan.Posisi}");
+                sb.AppendLine($"{temp.Karyawan.NomorKaryawan}; {temp.Karyawan.Nama}; {temp.Karyawan.Posisi}");
                 temp = temp.Prev;
             }
+            return sb.ToString().TrimEnd();
         }
     }
 }

@@ -6,7 +6,7 @@ namespace LinkedList;
 
 class Program
 {
-    static void Main(string[] args)
+    static void Main()
     {
         // Soal Perpustakaan
         KoleksiPerpustakaan newkoleksi = new KoleksiPerpustakaan();
@@ -17,7 +17,6 @@ class Program
 
         Console.WriteLine("---Buku Perpustakaan---");
         newkoleksi.TampilkanKoleksi();
-        Console.WriteLine();
 
         Console.WriteLine("Buku yang dicari: ");
         var cariBuku = newkoleksi.CariBuku("Hangout");
@@ -25,12 +24,10 @@ class Program
         {
             Console.WriteLine($"{cB.Judul}; {cB.Penulis}; {cB.Tahun}");
         }
-        Console.WriteLine();
 
         bool Bukudihapus = newkoleksi.HapusBuku("Koala Kumal");
         Console.WriteLine(Bukudihapus ? "Daftar buku setelah dihapus:" : "Tidak ditemukan");
         newkoleksi.TampilkanKoleksi();
-        Console.WriteLine();
 
         // Soal ManajemenKaryawan
         DaftarKaryawan daftarkaryawan = new DaftarKaryawan();
@@ -41,7 +38,6 @@ class Program
 
         Console.WriteLine("---Daftar Karyawan---");
         daftarkaryawan.TampilkanDaftar();
-        Console.WriteLine();
 
         Console.WriteLine("Karyawan yang dicari:");
         var cariKaryawan = daftarkaryawan.CariKaryawan("Muller");
@@ -49,12 +45,10 @@ class Program
         {
             Console.WriteLine($"{cK.NomorKaryawan}; {cK.Nama}; {cK.Posisi}");
         }
-        Console.WriteLine();
 
         bool berhasilHapus = daftarkaryawan.HapusKaryawan("001");
         Console.WriteLine(berhasilHapus ? "Daftar karyawan setelah dihapus:" : "Tidak ditemukan:");
         daftarkaryawan.TampilkanDaftar();
-        Console.WriteLine();
 
         // Soal Inventori
         ManajemenInventori MK = new ManajemenInventori();
@@ -64,7 +58,6 @@ class Program
         MK.TambahItem(new Item("Banana", 67));
         MK.TambahItem(new Item("Orange", 56));
         MK.TampilkanInventori();
-        Console.WriteLine();
 
         bool berhasil = MK.HapusItem("Banana");
         Console.WriteLine(berhasil ? "Setelah Item Dihapus" : "Tidak ditemukan");
